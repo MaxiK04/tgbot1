@@ -28,7 +28,9 @@ def main(message):
     markup.row(but_3,but_4)
     but_5 = types.InlineKeyboardButton(text="Информация", callback_data="info")
     markup.row(but_5)
-    key.add(but_1, but_2, but_3, but_4,but_5)
+    but_6 = types.InlineKeyboardButton(text="Значимые личности ЯГТУ", callback_data="people")
+    markup.row(but_6)
+    key.add(but_1, but_2, but_3, but_4,but_5,but_6)
     bot.send_message(message.chat.id, "Навигация", reply_markup=markup)
 
 
@@ -54,15 +56,20 @@ def callback_message(callback):
         but_9 = types.KeyboardButton(text="Секция 3")
         but_10 = types.KeyboardButton(text="ГЕНПЛАН Политеха")
         but_11 = types.KeyboardButton(text="Первые достижения")
-        but_12 = types.KeyboardButton(text="Значимые личности ЯГТУ(Часть 1)")
-        but_13 = types.KeyboardButton(text="Значимые личности ЯГТУ(Часть 2)")
 
 
 
-        markup.add(but_6,but_7,but_8,but_9,but_10,but_11,but_12,but_13)
+
+        markup.add(but_6,but_7,but_8,but_9,but_10,but_11)
         bot.send_message(callback.message.chat.id, "Пожалуйста, выберите из меню(снизу) то что вы бы хотели увидеть", reply_markup=markup)
     elif callback.data == 'info':
         bot.send_photo(callback.message.chat.id, photo=photo_url, caption = f'Расписание и расположение музея \n Музей располагается по адресу Московский проспект, 88, Ярославль в А корпусе ЯГТУ. Попасть в него можно придупредив(связаться) с Поповым  Романом Игоревичем.' )
+    elif callback.data == 'people':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        but_12 = types.KeyboardButton(text="Значимые личности ЯГТУ(Часть 1)")
+        but_13 = types.KeyboardButton(text="Значимые личности ЯГТУ(Часть 2)")
+        markup.add(but_12,but_13)
+        bot.send_message(callback.message.chat.id,"Пожалуйста выберите из меню",  reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
